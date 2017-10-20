@@ -35,6 +35,7 @@ RUN pip3 --no-cache-dir install \
         tables \
         ipykernel \
         jupyter \
+        notebook \
         matplotlib \
         numpy \
         pandas \
@@ -54,6 +55,9 @@ RUN pip3 --no-cache-dir install \
         JSAnimation
 RUN python3 -m ipykernel.kernelspec
 
+# jupyterhub support
+RUN pip3 --no-cache-dir install jupyterhub==0.8*
+
 # build info
 RUN echo "Timestamp:" `date --utc` | tee /image-build-info.txt
 
@@ -64,5 +68,9 @@ COPY shell       /.shell
 
 RUN chmod 755 .exec .run .shell
 
-#execute service
-CMD ["/.run"]
+RUN useradd -m jovyan
+ENV HOME=/home/jovyan
+WORKDIR $HOME
+USER jovyan
+
+CMD ["jupyterhub-singleuser"]
