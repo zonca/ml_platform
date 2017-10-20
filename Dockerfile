@@ -56,7 +56,7 @@ RUN pip3 --no-cache-dir install \
 RUN python3 -m ipykernel.kernelspec
 
 # jupyterhub support
-RUN pip3 --no-cache-dir install jupyterhub==0.8*
+RUN pip3 --no-cache-dir install jupyterhub==0.8.0
 
 # build info
 RUN echo "Timestamp:" `date --utc` | tee /image-build-info.txt
