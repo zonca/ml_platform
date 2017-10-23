@@ -57,6 +57,8 @@ RUN python3 -m ipykernel.kernelspec
 
 # jupyterhub support
 RUN pip3 --no-cache-dir install jupyterhub==0.8.0 jupyterlab
+# activate lab
+RUN jupyter serverextension enable --py jupyterlab --sys-prefix
 
 # build info
 RUN echo "Timestamp:" `date --utc` | tee /image-build-info.txt
